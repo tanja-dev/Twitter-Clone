@@ -1,26 +1,48 @@
-<% if @tweet.errors.any? %>
-<div id="error_explanation">
-  <h2>
-    <%= pluralize(@tweet.errors.count, "error") %> prohibited this article from being saved:
-  </h2>
+<div class="container">
+  <div class="columns is-multiline">
+    <div class="column is-6 is-offset-3">
+      <div class="content is-size-3">
+        <h1><%= heading %></h1>
+      </div>
+    </div>
 
-  <ul>
-    <% @tweet.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% if tweet.errors.any? %>
+      <div class="column is-6 is-offset-3">
+        <article class="message is-danger">
+          <div class="message-body">
+            <p>
+              <%= pluralize(tweet.errors.count, "error") %>
+              prohibited this tweet from being saved:</p>
+            <br>
+            <p>
+              <% tweet.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </p>
+          </div>
+        </article>
+      </div>
     <% end %>
-  </ul>
+
+    <div class="column is-6 is-offset-3">
+      <%= form_with model: tweet, local: true do |form| %>
+        <div class="field">
+          <%= form.label :body, class: "label" %>
+            <div class="control">
+              <%= form.text_area :body, class: "textarea", placeholder: 'Your body' %>
+            </div>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <%= form.submit submit, class: "button is-link" %>
+            </div>
+
+            <div class="control">
+              <%= link_to "Cancel", cancel_path, class: 'button is-link is-light' %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-<% end %>
-
-<%= form_with model: @tweet, local: true do |form| %>
-
-<p>
-  <%= form.label :body %>
-  <%= form.text_field :body %>
-</p>
-
-<p>
-  <%= form.submit "Post Tweet" %>
-</p>
-
-<% end %>
