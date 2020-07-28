@@ -22,7 +22,6 @@
       data: { confirm: "Are you sure you want to delete this tweet?" },
       class: "card-footer-item" %>
     </footer>
-  </div>
 
   <%= render @tweet, show: true %>
   <% @tweet.comments.each do |comment| %>
@@ -54,4 +53,5 @@
   </article>
   </div>
   <% end %>
+</div>
 </div>
